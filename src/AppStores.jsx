@@ -49,7 +49,8 @@ class AppStores {
 
     const { state, actionFactory } = store
     // 初始化appstates
-    this.appstates[storeName] = state
+    this.appstates[storeName] = {}
+    _.merge(this.appstates[storeName], state)
     // 初始化appactions
     this.appactions[storeName] = {}
     _.merge(this.appactions[storeName], actionFactory({
