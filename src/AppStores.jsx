@@ -9,15 +9,7 @@ class AppStores {
 
      // 初始化appstates和appactions
     _.forEach(stores, (store, storeName) => {
-      const { state, actionFactory } = store
-      // 初始化appstates
-      this.appstates[storeName] = state
-      // 初始化appactions
-      this.appactions[storeName] = {}
-      _.merge(this.appactions[storeName], actionFactory({
-        getState: () => this.getStoreState(storeName),
-        dispatch: (value) => this.dispatch(storeName, value),
-      }))
+      this.addStore(storeName, store)
     })
   }
   getStoreState = (storeName) => this.appstates[storeName]
@@ -50,6 +42,30 @@ class AppStores {
       _.forEach(keys, (k) => {
         storestate[k] = state[k]
       })
+    }
+  }
+  addStore = (storeName, store) => {
+    this.stores[storeName] = store
+
+    const { state, actionFactory } = store
+    // 初始化appstates
+    this.appstates[storeName] = state
+    // 初始化appactions
+    this.appactions[storeName] = {}
+    _.merge(this.appactions[storeName], actionFactory({
+      getState: () => this.getStoreState(storeName),
+      dispatch: (value) => this.dispatch(storeName, value),
+    }))
+  }
+  delStore = (storeName) => {
+    if (this.appstates[storeName]) {
+      delete this.appstates[storeName]
+    }
+    if (this.appstates[storeName]) {
+      delete this.appstates[storeName]
+    }
+    if (this.appactions[storeName]) {
+      delete this.appactions[storeName]
     }
   }
 }

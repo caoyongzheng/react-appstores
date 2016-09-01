@@ -5,8 +5,8 @@ class Connector extends React.Component {
   componentWillMount() {
     const { setActions, setProps, connects } = this.props
     const { appstates, appactions, connectors } = this.context.appstores
-    this.state = setProps(appstates)
-    this.actions = setActions(appactions)
+    this.state = setProps ? setProps(appstates) : {}
+    this.actions = setActions ? setActions(appactions) : {}
     this.id = _.uniqueId('connector_')
     this.updates = 0
     connectors[this.id] = {
