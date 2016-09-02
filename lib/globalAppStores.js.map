@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/globalAppStores.js"],"names":["stores"],"mappings":";;;;;;AAAA;;;;;;kBAEe,wBAAc,EAAEA,QAAQ,EAAV,EAAd,C","file":"globalAppStores.js","sourcesContent":["import AppStores from './AppStores'\n\nexport default new AppStores({ stores: {} })\n"]}

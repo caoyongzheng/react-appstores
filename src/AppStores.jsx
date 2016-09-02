@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 class AppStores {
   constructor({ stores }) {
-    this.stores = stores
+    this.stores = stores || {}
     this.connectors = {}  // 所有连接器
     this.appstates = {} // 所有状态
     this.appactions = {} // 所有动作

@@ -3,6 +3,7 @@ import AppStoresProvider from './AppStoresProvider'
 import Connector from './Connector'
 import Store from './Store'
 import DispatchListener from './DispatchListener'
+import globalAppStores from './globalAppStores'
 
 module.exports = {
   AppStores,
@@ -10,4 +11,5 @@ module.exports = {
   Connector,
   Store,
   DispatchListener,
+  globalAppStores,
 }
