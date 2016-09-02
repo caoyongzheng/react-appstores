@@ -4,14 +4,14 @@ import _ from 'lodash'
 class Connector extends React.Component {
   componentWillMount() {
     const { setActions, setProps, connects } = this.props
-    const { appstates, appactions, connectors } = this.context.appstores
-    this.state = setProps ? setProps(appstates) : {}
+    const { states, appactions, connectors } = this.context.appstores
+    this.state = setProps ? setProps(states) : {}
     this.actions = setActions ? setActions(appactions) : {}
     this.id = _.uniqueId('connector_')
     this.updates = 0
     connectors[this.id] = {
       update: () => {
-        this.setState(setProps(appstates))
+        this.setState(setProps(states))
         this.updates++
       },
       connects,

@@ -4,16 +4,16 @@ class AppStores {
   constructor({ stores }) {
     this.stores = stores || {}
     this.connectors = {}  // 所有连接器
-    this.appstates = {} // 所有状态
-    this.appactions = {} // 所有动作
+    this.states = {} // 所有状态
+    this.actions = {} // 所有动作
     this.dispatchListeners = {} // 分发事件监听器
 
-     // 初始化appstates和appactions
+     // 初始化states和actions
     _.forEach(stores, (store, storeName) => {
       this.addStore(storeName, store)
     })
   }
-  getStoreState = (storeName) => this.appstates[storeName]
+  getStoreState = (storeName) => this.states[storeName]
   dispatch = (storeName, { type, state }) => {
     const preStates = {}
     const listeners = []
@@ -23,7 +23,7 @@ class AppStores {
       }
     })
     if (listeners.length > 0) {
-      _.merge(preStates, this.appstates)
+      _.merge(preStates, this.states)
     }
     this.setStoreState(storeName, state)
 
@@ -40,7 +40,7 @@ class AppStores {
     // 回调函数
     if (listeners.length) {
       _.forEach(listeners, (l) => {
-        l.handle({ type, storeName, preStates, states: this.appstates })
+        l.handle({ type, storeName, preStates, states: this.states })
       })
     }
   }
@@ -55,7 +55,7 @@ class AppStores {
     }
   }
   setStoreState = (storeName, state) => {
-    const storestate = this.appstates[storeName]
+    const storestate = this.states[storeName]
     if (storestate) {
       const keys = _.keys(state)
       _.forEach(keys, (k) => {
@@ -67,25 +67,25 @@ class AppStores {
     this.stores[storeName] = store
 
     const { state, actionFactory } = store
-    // 初始化appstates
-    this.appstates[storeName] = {}
-    _.merge(this.appstates[storeName], state)
-    // 初始化appactions
-    this.appactions[storeName] = {}
-    _.merge(this.appactions[storeName], actionFactory({
+    // 初始化states
+    this.states[storeName] = {}
+    _.merge(this.states[storeName], state)
+    // 初始化actions
+    this.actions[storeName] = {}
+    _.merge(this.actions[storeName], actionFactory({
       getState: () => this.getStoreState(storeName),
       dispatch: (value) => this.dispatch(storeName, value),
     }))
   }
   delStore = (storeName) => {
-    if (this.appstates[storeName]) {
-      delete this.appstates[storeName]
+    if (this.states[storeName]) {
+      delete this.states[storeName]
     }
-    if (this.appstates[storeName]) {
-      delete this.appstates[storeName]
+    if (this.states[storeName]) {
+      delete this.states[storeName]
     }
-    if (this.appactions[storeName]) {
-      delete this.appactions[storeName]
+    if (this.actions[storeName]) {
+      delete this.actions[storeName]
     }
   }
 }
