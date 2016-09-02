@@ -6,6 +6,7 @@ class AppStores {
     this.connectors = {}  // 所有连接器
     this.appstates = {} // 所有状态
     this.appactions = {} // 所有动作
+    this.dispatchListeners = {} // 分发事件监听器
 
      // 初始化appstates和appactions
     _.forEach(stores, (store, storeName) => {
@@ -15,7 +16,13 @@ class AppStores {
   getStoreState = (storeName) => this.appstates[storeName]
   dispatch = (storeName, { type, state }) => {
     const preStates = {}
-    if (this.didDispatch) {
+    const listeners = []
+    _.forEach(this.dispatchListeners, (l) => {
+      if (l.storeName === storeName && l.type === type) {
+        listeners.push(l)
+      }
+    })
+    if (listeners.length > 0) {
       _.merge(preStates, this.appstates)
     }
     this.setStoreState(storeName, state)
@@ -31,8 +38,20 @@ class AppStores {
     })
 
     // 回调函数
-    if (this.didDispatch) {
-      this.didDispatch({ type, storeName, preStates, states: this.appstates })
+    if (listeners.length) {
+      _.forEach(listeners, (l) => {
+        l.handle({ type, storeName, preStates, states: this.appstates })
+      })
+    }
+  }
+  addDispatchListener = (listener) => {
+    const key = _.uniqueId('listener_')
+    this.dispatchListeners[key] = listener
+    return key
+  }
+  removeDispatchListener = (key) => {
+    if (this.dispatchListeners[key]) {
+      delete this.dispatchListeners[key]
     }
   }
   setStoreState = (storeName, state) => {
