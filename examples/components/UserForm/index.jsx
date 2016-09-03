@@ -6,13 +6,13 @@ function UserForm() {
   return (
     <Connector
       component={UserFormView}
-      setActions={({ UserForm: { setUsername, setPassword } }) => (
-        { setUsername, setPassword }
-      )}
-      setProps={({ UserForm: { username, password } }) => (
-        { username, password }
-      )}
       connects={{ UserForm: ['username', 'password'] }}
+      setProps={(states, actions) => ({
+        username: states.UserForm.username,
+        password: states.UserForm.password,
+        setUsername: actions.UserForm.setUsername,
+        setPassword: actions.UserForm.setPassword,
+      })}
     />
   )
 }
