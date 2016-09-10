@@ -2,16 +2,20 @@
 a react store util, dispatch state and actions to child components
 
 # Componets
-1. StoreSet: a class to store all kinds of states and actions,also dispatch state to related Connectors  when state changed.
+1. StoreSet: a store set, when user trigger an action (one of store's action, the store is belong to StoreSet), StoreSet then dispatch the action.
+in the dispatch there three step:
+  1. update the store's state with newState in the action.
+  2. notify the connectors to update
+  3. make dispatch callBack
 
-2. StoreSetProvider: a React Componet to pass the global AppStores instance child components
+2. StoreSetProvider: provider the global storeSet instance to its child's components
 
-3. Connectors: a React Componet to connect AppStores, pass its state and actions to children
+3. Connector: a React Componet, to connect the storeSet, when the storeSet dispatch an action, the Connector will be notified to update, and pass new props to its child's Componet
 
-4. Store: this app store class for init AppStores
+4. Store: a Class with state and actions, a unit stored in the the global storeSet
 
 # Usage
-see examples director
+see examples directory
 ```
 npm i
 npm start

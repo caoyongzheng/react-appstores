@@ -2,16 +2,15 @@ import React, { PropTypes } from 'react'
 
 class DispatchListener extends React.Component {
   componentWillMount() {
-    const { name, type, handle } = this.props
+    const { name, type, handler } = this.props
     this.name = name
-    function handler(props) {
-      if (props.type === type || type === '*') {
-        handle(props)
-      }
-    }
     this.id = this.context.storeSet.addDispatchListener(
       this.name,
-      handler,
+      (action) => {
+        if (action.type === type) {
+          handler(action)
+        }
+      },
     )
   }
   componentWillUnmount() {
@@ -30,7 +29,7 @@ DispatchListener.defaultProps = {
 }
 DispatchListener.propTypes = {
   name: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   handler: PropTypes.func.isRequired,
 }
 export default DispatchListener

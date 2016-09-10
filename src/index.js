@@ -1,8 +1,8 @@
 import Connector from './Connector'
 import DispatchListener from './DispatchListener'
 import Store from './Store'
-import StoreSet from './StoreSet.js'
-import StoreSetProvider from './StoreSetProvider.jsx'
+import StoreSet from './StoreSet'
+import StoreSetProvider from './StoreSetProvider'
 
 module.exports = {
   Connector,
