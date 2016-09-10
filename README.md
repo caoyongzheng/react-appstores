@@ -1,5 +1,5 @@
-# react-app-store
-a react store util, dispatch state and actions to child components
+# react-store-set
+a react store manager, dispatch state and actions to connected components
 
 # Componets
 1. StoreSet: a store set, when user trigger an action (one of store's action, the store is belong to StoreSet), StoreSet then dispatch the action.
