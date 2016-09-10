@@ -2,9 +2,9 @@
 a react store util, dispatch state and actions to child components
 
 # Componets
-1. AppStores: a class to store all kinds of states and actions,also dispatch state to related Connectors  when state changed.
+1. StoreSet: a class to store all kinds of states and actions,also dispatch state to related Connectors  when state changed.
 
-2. AppStoresProvider: a React Componet to pass the global AppStores instance child components
+2. StoreSetProvider: a React Componet to pass the global AppStores instance child components
 
 3. Connectors: a React Componet to connect AppStores, pass its state and actions to children
 

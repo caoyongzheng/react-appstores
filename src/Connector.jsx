@@ -1,16 +1,13 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 
-
-
 class Connector extends React.Component {
   state = {
     update: 0,
   }
   componentWillMount() {
-    const { setActions, setProps, connects } = this.props
-    const { states, actions, connectors } = this.context.appstores
-    this.actions = setActions ? setActions(actions) : {}
+    const { setProps, connects } = this.props
+    const { stores, connectors } = this.context.storeSet
     this.id = _.uniqueId('connector_')
     connectors[this.id] = {
       update: () => this.setState({ update: this.state.update + 1 }),
@@ -18,17 +15,17 @@ class Connector extends React.Component {
     }
   }
   componentWillUnmount() {
-    if (this.context.appstores.connectors[this.id]) {
-      delete this.context.appstores.connectors[this.id]
+    if (this.context.storeSet.connectors[this.id]) {
+      delete this.context.storeSet.connectors[this.id]
     }
   }
   render() {
     const { component, children, props, setProps } = this.props
-    const { states, actions } = this.context.appstores
+    const { stores } = this.context.storeSet
     if (component) {
       return React.createElement(
         component,
-        { ...props, ...this.actions, ...setProps(states, actions) },
+        { ...props, ...this.actions, ...setProps(stores) },
       )
     }
     if (children) {
@@ -41,10 +38,9 @@ class Connector extends React.Component {
   }
 }
 Connector.contextTypes = {
-  appstores: PropTypes.object.isRequired,
+  storeSet: PropTypes.object.isRequired,
 }
 Connector.defaulProps = {
-  setActions: () => {},
   setProps: () => {},
   connects: {},
   props: {},

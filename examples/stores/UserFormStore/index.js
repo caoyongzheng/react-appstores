@@ -1,8 +1,8 @@
 import { Store } from '../../../src'
-import actionFactory from './actionFactory'
+import { setUsername, setPassword } from './actions'
 
 export default new Store({
-  actionFactory,
+  actions: { setUsername, setPassword },
   state: {
     username: '',
     password: '',

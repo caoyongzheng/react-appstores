@@ -1,15 +1,13 @@
-import AppStores from './AppStores'
-import AppStoresProvider from './AppStoresProvider'
 import Connector from './Connector'
-import Store from './Store'
 import DispatchListener from './DispatchListener'
-import globalAppStores from './globalAppStores'
+import Store from './Store'
+import StoreSet from './StoreSet.js'
+import StoreSetProvider from './StoreSetProvider.jsx'
 
 module.exports = {
-  AppStores,
-  AppStoresProvider,
   Connector,
-  Store,
   DispatchListener,
-  globalAppStores,
+  Store,
+  storeSet: new StoreSet(),
+  StoreSetProvider,
 }

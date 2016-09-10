@@ -2,15 +2,20 @@ import React, { PropTypes } from 'react'
 
 class DispatchListener extends React.Component {
   componentWillMount() {
-    const { storeName, type, handle } = this.props
-    this.id = this.context.appstores.addDispatchListener({
-      storeName,
-      type,
-      handle,
-    })
+    const { name, type, handle } = this.props
+    this.name = name
+    function handler(props) {
+      if (props.type === type || type === '*') {
+        handle(props)
+      }
+    }
+    this.id = this.context.storeSet.addDispatchListener(
+      this.name,
+      handler,
+    )
   }
   componentWillUnmount() {
-    this.context.appstores.removeDispatchListener(this.id)
+    this.context.storeSet.removeDispatchListener(this.name, this.id)
   }
   render() {
     const { children } = this.props
@@ -18,11 +23,14 @@ class DispatchListener extends React.Component {
   }
 }
 DispatchListener.contextTypes = {
-  appstores: PropTypes.object.isRequired,
+  storeSet: PropTypes.object.isRequired,
+}
+DispatchListener.defaultProps = {
+  type: '*'
 }
 DispatchListener.propTypes = {
-  storeName: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  handle: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  handler: PropTypes.func.isRequired,
 }
 export default DispatchListener

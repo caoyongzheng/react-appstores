@@ -1,20 +1,20 @@
 {
-  "name": "react-appstores",
-  "version": "1.0.7",
+  "name": "react-store-set",
+  "version": "1.0.1",
   "description": "a react store util, dispatch state and actions to child components",
   "main": "index.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "webpack-dev-server -d --hot --config webpack.config.js --port 9090",
-      "compile": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/babel src --copy-files --source-maps --extensions .js,.jsx --out-dir lib",
-      "prepublish": "npm run compile"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --progress --inline --colors --port 9090",
+    "compile": "./node_modules/.bin/rimraf lib && ./node_modules/.bin/babel src --copy-files --source-maps --extensions .js,.jsx --out-dir lib",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/caoyongzheng/react-appstores.git"
+    "url": "git+https://github.com/caoyongzheng/react-store-set.git"
   },
   "keywords": [
     "react",
@@ -23,9 +23,9 @@
   "author": "caoyongzheng",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/caoyongzheng/react-appstores/issues"
+    "url": "https://github.com/caoyongzheng/react-store-set/issues"
   },
-  "homepage": "https://github.com/caoyongzheng/react-appstores#readme",
+  "homepage": "https://github.com/caoyongzheng/react-store-set#readme",
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-core": "^6.13.2",
